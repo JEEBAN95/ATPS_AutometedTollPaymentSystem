@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	${pwdErr1}
 	<table>
 		<tr>
 			<td>
@@ -18,21 +19,19 @@
 			<td>&nbsp;Email&nbsp;</td>
 			<td><label>:&nbsp;${email}</label></td>
 		</tr>
-		<form:form action="updPwd" modelAttribute="userRegdCmd">
+		<form:form action="updPwd?userEmail=${email}"
+			modelAttribute="userRegdCmd">
 			<tr>
 				<td>&nbsp;Temp. Password&nbsp;</td>
 				<td><form:input path="password" /></td>
-				<td><form:errors path="password" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;New Password&nbsp;</td>
 				<td><form:input path="newPassword" /></td>
-				<td><form:errors path="newPassword" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;Confirm Password&nbsp;</td>
 				<td><form:input path="confirmPassword" /></td>
-				<td><form:errors path="confirmPassword" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><button type="submit"

@@ -1,6 +1,7 @@
 package com.jk.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +27,7 @@ public class User {
 	
 	@Id
 	@Column(name = "UID")
-	@GeneratedValue(strategy = GenerationType.AUTO,generator = "UID_SEQ")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "UID_SEQ")
 	private int uid;
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
@@ -42,4 +46,12 @@ public class User {
 	@Version
 	@Column(name ="STATUS")
 	private int status;
+	@Column(name = "CREATE_DT", updatable = false)
+	@CreationTimestamp
+	private Timestamp createDate;
+	@Column(name = "UPDATE_DATE")
+	@UpdateTimestamp 
+	private Timestamp updateDate;
+	 @Column(name = "USER_ROLE")
+	 private String role;
 }

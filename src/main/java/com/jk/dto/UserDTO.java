@@ -20,5 +20,4 @@ public class UserDTO {
 	
 	private String newPassword;
 	private String confirmPassword;
-	private int status;
 }

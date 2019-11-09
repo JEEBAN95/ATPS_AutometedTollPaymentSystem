@@ -7,12 +7,11 @@ public class TemporaryPasswordGenerator {
 
 	public static String getAlphaNumericString(int n) {
 		// length is bounded by 256 Character
+		// Create a StringBuffer to store the result
 		byte[] array = new byte[256];
 		new SecureRandom().nextBytes(array);
 
 		String randomString = new String(array, Charset.forName("UTF-8"));
-
-		// Create a StringBuffer to store the result
 		StringBuffer r = new StringBuffer();
 
 		// remove all spacial char

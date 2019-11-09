@@ -12,7 +12,7 @@
 		<tr>
 			<td style="text-align: center;" colspan="2"><h3>SIGN IN</h3></td>
 		</tr>
-		<form:form action="sign_in" modelAttribute="userloginCmd">
+		<form:form action="signin" modelAttribute="userRegdCmd">
 			<tr>
 				<td style="text-align: right;">&nbsp;User Name&nbsp;</td>
 				<td><form:input path="email" placeholder="email adderss" /></td>
