@@ -10,6 +10,14 @@
 <body>
 	<table>
 		<tr>
+			<td colspan="2" style="text-align: left;"><label
+				style="color: cyan; font-weight: bolder;">${msg}</label></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: left;"><label
+				style="color: red; font-weight: bolder;">${email}</label></td>
+		</tr>
+		<tr>
 			<td style="text-align: center;" colspan="2"><h3>SIGN IN</h3></td>
 		</tr>
 		<form:form action="signin" modelAttribute="userRegdCmd">
@@ -31,7 +39,8 @@
 			</tr>
 			<tr>
 				<td style="height: 100px"><a href="#">forgot password ?</a></td>
-				<td  style="text-align: right;"><a href="signUp" >account not created ?</a></td>
+				<td style="text-align: right;"><a href="signUp">account not
+						created ?</a></td>
 			</tr>
 		</form:form>
 	</table>

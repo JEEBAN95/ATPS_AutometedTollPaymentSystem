@@ -1,5 +1,6 @@
 package com.jk.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -23,7 +24,8 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "USER")
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = 5887763953884053517L;
 	
 	@Id
 	@Column(name = "UID")
@@ -31,9 +33,9 @@ public class User {
 	private int uid;
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
-	@Column(name = "LAST_NAME", nullable = false) 
+	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
-	@Column(name = "EMAIL" )
+	@Column(name = "EMAIL")
 	private String email;
 	@Column(name = "PHONE_NUM", nullable = false)
 	private long phoneNum;
@@ -44,14 +46,14 @@ public class User {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	@Version
-	@Column(name ="STATUS")
+	@Column(name = "STATUS")
 	private int status;
 	@Column(name = "CREATE_DT", updatable = false)
 	@CreationTimestamp
 	private Timestamp createDate;
 	@Column(name = "UPDATE_DATE")
-	@UpdateTimestamp 
+	@UpdateTimestamp
 	private Timestamp updateDate;
-	 @Column(name = "USER_ROLE")
-	 private String role;
+	@Column(name = "USER_ROLE")
+	private String role;
 }

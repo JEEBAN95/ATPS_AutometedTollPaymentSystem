@@ -1,5 +1,6 @@
 package com.jk.dto;
 
+import java.io.Serializable;
 import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserDTO {
+public class UserDTO implements Serializable {
 	
 	private String firstName;
 	private String lastName;

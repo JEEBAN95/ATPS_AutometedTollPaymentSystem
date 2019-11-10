@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Home page
+This Web site is Under Construction
 </body>
 </html>

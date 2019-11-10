@@ -8,18 +8,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${pwdErr1}
+	
 	<table>
 		<tr>
-			<td>
-				<h3>Unlock Account</h3>
+			<td colspan="2">
+				<label style="color: red; font-weight: bolder;">${msg}</label>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<h3><br><label style=" font-weight: bolder;">Unlock Account</label></h3>
 			</td>
 		</tr>
 		<tr>
 			<td>&nbsp;Email&nbsp;</td>
 			<td><label>:&nbsp;${email}</label></td>
 		</tr>
-		<form:form action="updPwd?userEmail=${email}"
+		<form:form action="unlockUser?userEmail=${email}"
 			modelAttribute="userRegdCmd">
 			<tr>
 				<td>&nbsp;Temp. Password&nbsp;</td>

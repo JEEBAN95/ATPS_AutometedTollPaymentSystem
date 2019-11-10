@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.jk.commonsUtils.ApplicationConstants;
+import com.jk.commonsUtils.TemporaryPasswordGenerator;
 import com.jk.dto.UserDTO;
-import com.jk.commons.Infomessages;
-import com.jk.commons.TemporaryPasswordGenerator;
 import com.jk.entity.User;
 import com.jk.repository.UserRepository;
 
@@ -20,19 +20,20 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepo;
 	@Autowired
 	private Environment env;
+	
 
 	// use userRepo
 	// save data
+	// save data to file
 	@Override
-	public User saveUser(UserDTO userDto) {
+	public User saveUser(UserDTO userDto) throws Exception{
 		User userEntity = new User();
 		BeanUtils.copyProperties(userDto, userEntity);
 		String tempPwd = TemporaryPasswordGenerator
 				.getAlphaNumericString(Integer.parseInt(env.getProperty("passwordlength")));
-		userEntity.setRole(Infomessages.DefaultRole);
+		userEntity.setRole(ApplicationConstants.DefaultRole);
 		userEntity.setPassword(tempPwd);
-		userEntity = userRepo.save(userEntity);
-		System.out.println(userEntity);
+		userEntity = userRepo.save(userEntity);		
 		return userEntity;
 	}// saveUser
 
@@ -52,20 +53,23 @@ public class UserServiceImpl implements UserService {
 	// get data using email
 	// update data
 	@Override
-	public User updateUser(UserDTO userDto) {
-		User userEntity = userRepo.getUserByEmail(userDto.getEmail());
-		if (userEntity.getPassword().equals(userDto.getPassword())
-				&& userDto.getNewPassword().equals(userDto.getConfirmPassword())) {
-			userEntity.setPassword(userDto.getNewPassword());
-			userEntity = userRepo.save(userEntity);
+	public User updateUser(UserDTO userDto) throws Exception {
+		User userEntity = null;
+		if (userDto.getNewPassword().equals(userDto.getConfirmPassword())) {
+			userEntity = userRepo.getUserByEmail(userDto.getEmail());
+			if (userEntity.getPassword().equals(userDto.getPassword())) {
+				userEntity.setPassword(userDto.getNewPassword());
+				userEntity = userRepo.save(userEntity);
+			}
 		}
 		return userEntity;
 	}// updateUser
 
 	// user userRepo
 	// check the credentials provided by the user
+	// called by UserLoginController
 	@Override
-	public User userLogin(UserDTO userDto) {
+	public User userLogin(UserDTO userDto) throws Exception {
 		User userEntity = userRepo.getUserByEmail(userDto.getEmail());
 		if (userDto.getEmail().equals(userEntity.getEmail()) && userDto.getPassword().equals(userEntity.getPassword()))
 			return userEntity;
