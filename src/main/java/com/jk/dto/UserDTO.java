@@ -10,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserDTO implements Serializable {
+	private static final long serialVersionUID = 1147009515604397952L;
 	
 	private String firstName;
 	private String lastName;

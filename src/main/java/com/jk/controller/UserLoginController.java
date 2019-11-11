@@ -26,8 +26,8 @@ public class UserLoginController {
 	public String showLoginPage(Model model, @RequestParam("email") String email) {
 		UserCmd userCmd = null;
 		userCmd = new UserCmd();
-		model.addAttribute("msg", ApplicationConstants.LoginMsg);
-		model.addAttribute("email", email);
+		model.addAttribute(ApplicationConstants.LOGIN_MSG, ApplicationConstants.LoginMsg);
+		model.addAttribute(ApplicationConstants.USER_EMAIL, email);
 		model.addAttribute("userRegdCmd", userCmd);
 		return ApplicationConstants.LOGICAL_USER_LOGIN_FORM;
 	}// showLoginPage

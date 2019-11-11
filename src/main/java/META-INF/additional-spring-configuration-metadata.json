@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "passwordlength",
-  "type": "java.lang.String",
-  "description": "A description for 'passwordlength'"
-}]}
+{"properties": [
+  {
+    "name": "passwordlength",
+    "type": "java.lang.String",
+    "description": "A description for 'passwordlength'"
+  },
+  {
+    "name": "mail-sent",
+    "type": "java.lang.String",
+    "description": "A description for 'mail-sent'"
+  }
+]}

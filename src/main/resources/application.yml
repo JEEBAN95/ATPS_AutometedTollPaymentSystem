@@ -7,6 +7,20 @@ spring:
     view:
       prefix: /WEB-INF/pages/
       suffix: .jsp
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jeebankishore95@gmail.com
+    password: jinujinu
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
   datasource:
     url: jdbc:mysql://localhost:3306/atps_project
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,5 +34,5 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     
 
-#give the temporary password length
 passwordlength: 8
+mailSent: The temporary password has been sent to your email, Kindly unlock your account to access our services

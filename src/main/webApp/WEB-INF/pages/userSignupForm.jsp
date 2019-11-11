@@ -10,35 +10,33 @@
 <body>
 	<table>
 		<tr>
+			<td colspan="2"><label style="color: red; font-weight: bolder;">${msg}</label></td>
+		</tr>
+		<tr>
 			<td>
 				<h3>User Details</h3>
 			</td>
 		</tr>
 		<form:form action="register" modelAttribute="userRegdCmd">
 			<tr>
-				<td>&nbsp;First_name&nbsp;</td>
+				<td>&nbsp;First Name&nbsp;</td>
 				<td><form:input path="firstName" /></td>
-				<td><form:errors path="firstName" /></td>
 			</tr>
 			<tr>
-				<td>&nbsp;Last_name&nbsp;</td>
+				<td>&nbsp;Last Name&nbsp;</td>
 				<td><form:input path="lastName" /></td>
-				<td><form:errors path="lastName" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;Email&nbsp;</td>
 				<td><form:input path="email" /></td>
-				<td><form:errors path="email" /></td>
 			</tr>
 			<tr>
-				<td>&nbsp;Ph_no&nbsp;</td>
+				<td>&nbsp;Phone no&nbsp;</td>
 				<td><form:input path="phoneNum" /></td>
-				<td><form:errors path="phoneNum" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;Dob&nbsp;</td>
 				<td><form:input type="date" path="dob" /></td>
-				<td><form:errors path="dob" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;Gender&nbsp;</td>
@@ -52,6 +50,17 @@
 					<button type="reset"
 						style="background-color: #FF4500; color: white;">Reset</button></td>
 			</tr>
+			<table>
+				<tr>
+					<td colspan="2"><label
+						style="color: blue; font-weight: bolder;">${success}</label></td>
+				</tr>
+				<tr>
+					<td colspan="2"><label
+						style="color: green; font-weight: bolder;">${emailNotification}</label>
+					</td>
+				</tr>
+			</table>
 		</form:form>
 	</table>
 </body>

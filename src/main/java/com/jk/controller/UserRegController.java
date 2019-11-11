@@ -2,6 +2,7 @@ package com.jk.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,11 @@ public class UserRegController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	Environment env;
 
 	@GetMapping("/login")
-	public String showLoginPage(Model model) {
+	public String showLoginPage(Model model){
 		UserCmd userCmd = null;
 		userCmd = new UserCmd();
 		model.addAttribute("userRegdCmd", userCmd);
@@ -39,29 +42,45 @@ public class UserRegController {
 		return ApplicationConstants.LOGICAL_USER_SIGNUP_FORM;
 	}// userSignUp
 
-	// use service
-	// Register user
-	// send the data and hyperlink to email
+	/**
+	 * 
+	 * @param service
+	 * @param Register user
+	 * @param sent     to email
+	 */
 	@PostMapping("/register")
-	public String userRegister(@ModelAttribute UserCmd userCmd, Model model) throws Exception {
+	public String userRegister(@ModelAttribute UserCmd userCmd, Model model) {
 
 		UserDTO userDto = new UserDTO();
 		BeanUtils.copyProperties(userCmd, userDto);
-		User userEntity = userService.saveUser(userDto);
-		return "redirect:/sentMail?uid=" + userEntity.getUid();
+		User userEntity = null;
+		try {
+			userEntity = userService.saveUser(userDto);
+			return "redirect:/sentMail?uid=" + userEntity.getUid();
+		} catch (Exception e) {
+			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, "Your email is already exist");
+			return "redirect:/sentMail?msg=" + model.getAttribute("msg");
+		}
 	}// userRegister
 
 	@GetMapping("/sentMail")
-	public String showViewPage(@ModelAttribute UserCmd userCmd, Model model, @RequestParam("uid") int uid) {
-		model.addAttribute("url", ApplicationConstants.url);
-		model.addAttribute("msg", ApplicationConstants.msg);
-		model.addAttribute("userId", uid);
-		model.addAttribute("password", userService.getUserByID(uid).getPassword());
-		return "view";
-	}// showViewPage
+	public String userRegisterSuccess(@ModelAttribute UserCmd userCmd, Model model, String msg) {
+		
+		if (msg != null)
+			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, "Your email is already exist");
+		else {
+			model.addAttribute(ApplicationConstants.SUCCESS_MSG, ApplicationConstants.RegistrationSuccess);
+			model.addAttribute(ApplicationConstants.EMAIL_NOTIFICATION, env.getProperty("mailSent"));
+		}
+		return ApplicationConstants.LOGICAL_USER_SIGNUP_FORM;
+	}// userRegisterSuccess
 
-	// use service
-	// get user info form db
+	/**
+	 * use
+	 * 
+	 * @param service
+	 * @param get     user info form database
+	 */
 	@GetMapping("/user-acc-unlock")
 	public String showUnlockAccForm(@ModelAttribute UserCmd userCmd, Model model, @RequestParam("uid") int uid) {
 
@@ -69,12 +88,15 @@ public class UserRegController {
 		UserDTO userDto = new UserDTO();
 		BeanUtils.copyProperties(userEntity, userDto);
 		BeanUtils.copyProperties(userDto, userCmd);
-		model.addAttribute("email", userCmd.getEmail());
+		model.addAttribute(ApplicationConstants.USER_EMAIL, userCmd.getEmail());
 		return ApplicationConstants.LOGICAL_USER_ACC_UNLOCK_FORM;
 	}// showUnlockAccForm
 
-	// get the data form unlock account form
-	// use service
+	/**
+	 * @param update   user's password
+	 * @param unlock   user
+	 * @param redirect to login page
+	 */
 	@PostMapping("/unlockUser")
 	public String updatePassword(@ModelAttribute UserCmd userCmd, @RequestParam("userEmail") String email,
 			Model model) {
@@ -95,7 +117,7 @@ public class UserRegController {
 		} // try
 		catch (Exception e) {
 			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.pwdErr);
-			model.addAttribute("email", userDto.getEmail());
+			model.addAttribute(ApplicationConstants.USER_EMAIL, userDto.getEmail());
 			return ApplicationConstants.LOGICAL_USER_ACC_UNLOCK_FORM;
 		} // catch
 		return "redirect:/userlogin?email=" + userDto.getEmail();

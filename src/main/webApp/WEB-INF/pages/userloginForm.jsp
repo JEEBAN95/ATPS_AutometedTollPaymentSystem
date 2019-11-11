@@ -8,10 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<label style="color: red">${msg}</label>
 	<table>
 		<tr>
 			<td colspan="2" style="text-align: left;"><label
-				style="color: cyan; font-weight: bolder;">${msg}</label></td>
+				style="color: cyan; font-weight: bolder;">${loginMsg}</label></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="text-align: left;"><label
