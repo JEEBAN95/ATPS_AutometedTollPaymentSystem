@@ -10,7 +10,9 @@
 <body>
 	<table>
 		<tr>
-			<td colspan="2"><label style="color: red; font-weight: bolder;">${msg}</label></td>
+			<td colspan="2"><label style="color: red; font-weight: bolder;">${msg}</label><br>
+			<a href="login"><button type="button" style="background-color: blue; color: white">Login</button></a>
+			</td>
 		</tr>
 		<tr>
 			<td>

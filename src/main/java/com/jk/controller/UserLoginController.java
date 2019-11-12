@@ -21,7 +21,9 @@ public class UserLoginController {
 
 	@Autowired
 	private UserService userService;
-
+	/**
+	 * @apiNote get data form login page allow login for the user use service
+	 */
 	@GetMapping("/userlogin")
 	public String showLoginPage(Model model, @RequestParam("email") String email) {
 		UserCmd userCmd = null;
@@ -32,9 +34,9 @@ public class UserLoginController {
 		return ApplicationConstants.LOGICAL_USER_LOGIN_FORM;
 	}// showLoginPage
 
-	// get data form login page
-	// allow login for the user
-	// use service
+	/**
+	 * @apiNote get data form login page allow login for the user use service
+	 */
 	@PostMapping("/signin")
 	public String userSignIn(@ModelAttribute UserCmd userCmd, Model model) {
 
@@ -45,11 +47,10 @@ public class UserLoginController {
 		try {
 			userEntity = userService.userLogin(userDto);
 			userDto.setEmail(userEntity.getEmail());
-		} // try
-		catch (Exception e) {
+		} catch (Exception e) {
 			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.pwdErr);
 			return ApplicationConstants.LOGICAL_USER_LOGIN_FORM;
 		}
 		return ApplicationConstants.LOGICAL_USER_DASHBOARD;
 	}// userSignIn
-}
+}// class

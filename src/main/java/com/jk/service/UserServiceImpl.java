@@ -42,10 +42,9 @@ public class UserServiceImpl implements UserService {
 		userEntity.setPassword(tempPwd);
 
 		List<User> userList = userRepo.getUserByEmail(userDto.getEmail());
-		System.out.println(userDto.getEmail());
 		if (userList.size() == 0) {
 			userEntity = userRepo.save(userEntity);
-			isSent = mailSender.sendMail(userEntity);
+			//isSent = mailSender.sendMail(userEntity);
 			return userEntity;
 		}
 		System.out.println("Mail Status-------------->" + isSent);

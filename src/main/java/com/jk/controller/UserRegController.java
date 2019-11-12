@@ -26,16 +26,21 @@ public class UserRegController {
 	@Autowired
 	Environment env;
 
+	/**
+	 * @apiNote launch form
+	 */
 	@GetMapping("/login")
-	public String showLoginPage(Model model){
+	public String showLoginPage(Model model) {
 		UserCmd userCmd = null;
 		userCmd = new UserCmd();
 		model.addAttribute("userRegdCmd", userCmd);
 		return ApplicationConstants.LOGICAL_USER_LOGIN_FORM;
 	}// showLoginPage
 
-	// Create UserCmd userCmd obj
-	// launch form
+	/**
+	 * @param UserCmd userCmd
+	 * @apiNote launch form
+	 */
 	@GetMapping("/signUp")
 	public String userSignUp(Model model, @ModelAttribute UserCmd userCmd) {
 		model.addAttribute("userRegdCmd", userCmd);
@@ -43,10 +48,9 @@ public class UserRegController {
 	}// userSignUp
 
 	/**
-	 * 
-	 * @param service
+	 * @param service  not null
 	 * @param Register user
-	 * @param sent     to email
+	 * @apiNote this method is used for registering the User information
 	 */
 	@PostMapping("/register")
 	public String userRegister(@ModelAttribute UserCmd userCmd, Model model) {
@@ -58,14 +62,14 @@ public class UserRegController {
 			userEntity = userService.saveUser(userDto);
 			return "redirect:/sentMail?uid=" + userEntity.getUid();
 		} catch (Exception e) {
-			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, "Your email is already exist");
-			return "redirect:/sentMail?msg=" + model.getAttribute("msg");
+			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.emailErr);
+			return "redirect:/sentMail?msg=" + model.getAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG);
 		}
 	}// userRegister
 
 	@GetMapping("/sentMail")
 	public String userRegisterSuccess(@ModelAttribute UserCmd userCmd, Model model, String msg) {
-		
+
 		if (msg != null)
 			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, "Your email is already exist");
 		else {
@@ -76,10 +80,8 @@ public class UserRegController {
 	}// userRegisterSuccess
 
 	/**
-	 * use
-	 * 
-	 * @param service
-	 * @param get     user info form database
+	 * @param service not null
+	 * @apiNote get user info form database
 	 */
 	@GetMapping("/user-acc-unlock")
 	public String showUnlockAccForm(@ModelAttribute UserCmd userCmd, Model model, @RequestParam("uid") int uid) {
@@ -93,9 +95,8 @@ public class UserRegController {
 	}// showUnlockAccForm
 
 	/**
-	 * @param update   user's password
-	 * @param unlock   user
-	 * @param redirect to login page
+	 * @author user's password
+	 * @param UserCmd userCmd
 	 */
 	@PostMapping("/unlockUser")
 	public String updatePassword(@ModelAttribute UserCmd userCmd, @RequestParam("userEmail") String email,
@@ -114,12 +115,11 @@ public class UserRegController {
 				userEntity = null;
 			}
 			userDto.setEmail(userEntity.getEmail());
-		} // try
-		catch (Exception e) {
+		} catch (Exception e) {
 			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.pwdErr);
 			model.addAttribute(ApplicationConstants.USER_EMAIL, userDto.getEmail());
 			return ApplicationConstants.LOGICAL_USER_ACC_UNLOCK_FORM;
-		} // catch
+		}
 		return "redirect:/userlogin?email=" + userDto.getEmail();
 	}// updatePassword
 }// class

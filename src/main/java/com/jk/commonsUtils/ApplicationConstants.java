@@ -3,46 +3,81 @@ package com.jk.commonsUtils;
 public interface ApplicationConstants {
 
 	/**
-	 * @Param below constants are used for some constant messages
-	 * 
+	 * @Param this constants is used for specifying the 'role'
 	 */
-	String url = "Link to Unlock your account";
-	
-	String msg = "User Name and Password is already sent to your given email address";
-	
-	String pwdErr = "Please provide valid uname/password";
-	
 	String DefaultRole = "USER";
-	
-	String LoginMsg = "Use your email and password for login";
-	
-	String RegistrationSuccess = "You have successfully registered";
-	
-	String emailErr = "Your email is already exist "+"<a href=http://localhost:2525/atps/login>Login</a>";
-	
+
 	/**
-	 * @Param below constants are used for some model attributes
-	 * 
-	*/	
+	 * @Param this constants is used for 'email' notification
+	 */
+	String msg = "User Name and Password is already sent to your given email address";
+
+	/**
+	 * @Param this constants is used for 'uname/password' error notification
+	 */
+	String pwdErr = "Please provide valid uname/password";
+
+	/**
+	 * @Param this constants is used for 'login' notification
+	 */
+	String LoginMsg = "Use your email and password for login";
+
+	/**
+	 * @Param this constants is used for 'success' notification
+	 */
+	String RegistrationSuccess = "You have successfully registered";
+
+	/**
+	 * @Param this constants is used for 'duplicate email' notification
+	 */
+	String emailErr = "Your email is already exist ";
+
+	/**
+	 * @Param this is the model attribute for password and email error messages
+	 */
 	String UNAME_PASS_ERR_MSG = "msg";
 
-	String SUCCESS_MSG = "success";
-	
-	String USER_EMAIL = "email";
-	
-	String LOGIN_MSG="loginMsg";
-	
-	String EMAIL_NOTIFICATION = "emailNotification";
-	
-	
 	/**
-	 * @Param below constants are used for referring the logical view pages 
-	*/
+	 * @Param this is the model attribute for success messages
+	 */
+	String SUCCESS_MSG = "success";
+
+	/**
+	 * @Param this is the model attribute for sending the email to logical view page
+	 */
+	String USER_EMAIL = "email";
+
+	/**
+	 * @Param this is the model attribute for login messages
+	 */
+	String LOGIN_MSG = "loginMsg";
+
+	/**
+	 * @Param this is the model attribute for email related notifications
+	 */
+	String EMAIL_NOTIFICATION = "emailNotification";
+
+	/**
+	 * @Param below constants are used for referring 'userloginForm' logical view
+	 *        pages
+	 */
 	String LOGICAL_USER_LOGIN_FORM = "userloginForm";
-	
+
+	/**
+	 * @Param below constants are used for referring 'userSignupForm' logical view
+	 *        pages
+	 */
 	String LOGICAL_USER_SIGNUP_FORM = "userSignupForm";
-	
+
+	/**
+	 * @Param below constants are used for referring 'userAccountUnlockForm' logical
+	 *        view pages
+	 */
 	String LOGICAL_USER_ACC_UNLOCK_FORM = "userAccountUnlockForm";
-	
+
+	/**
+	 * @Param below constants are used for referring 'userDashboard' logical view
+	 *        pages
+	 */
 	String LOGICAL_USER_DASHBOARD = "userDashboard";
 }

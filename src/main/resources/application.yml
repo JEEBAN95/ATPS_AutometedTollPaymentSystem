@@ -33,6 +33,6 @@ spring:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.MySQL5Dialect
     
-
+#Application properties
 passwordlength: 8
 mailSent: The temporary password has been sent to your email, Kindly unlock your account to access our services

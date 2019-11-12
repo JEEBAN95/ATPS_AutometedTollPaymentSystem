@@ -27,8 +27,8 @@ public class MailSenderConfig {
 		final String subject = "no Reply ETPS Registration details";
 		final String txt = "Hi " + userEntity.getFirstName() + " " + userEntity.getLastName()
 				+ ", Welcome to Electronic Toll Payment System.Your Registration is almost Complete.Please Un-lock your account using below details. Your Temporary Password "
-				+ userEntity.getPassword() + "<a href=http://localhost:2525/atps/user-acc-unlock?uid=" + userEntity.getUid()
-				+ "> Click Here to Un lock your Account </a>";
+				+ userEntity.getPassword() + "<a href=http://localhost:2525/atps/user-acc-unlock?uid="
+				+ userEntity.getUid() + "> Click Here to Un lock your Account </a>";
 		try {
 			MimeMessage message = sender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, false);
@@ -44,5 +44,4 @@ public class MailSenderConfig {
 		}
 		return flag;
 	}
-
 }
