@@ -27,7 +27,8 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * @param userRepo not null
-	 * @param userDto not null
+	 * @param userDto  not null
+	 * @throws Exception
 	 * @apiNote save data send uname, pass, mail addr to user's mail
 	 * @apiNote this is used for saving the user's information
 	 */
@@ -38,16 +39,17 @@ public class UserServiceImpl implements UserService {
 		BeanUtils.copyProperties(userDto, userEntity);
 		String tempPwd = TemporaryPasswordGenerator
 				.getAlphaNumericString(Integer.parseInt(env.getProperty("passwordlength")));
-		userEntity.setRole(ApplicationConstants.DefaultRole);
+		userEntity.setRole(ApplicationConstants.DEFAULT_ROLE);
+		userEntity.setAccStatus(ApplicationConstants.USER_LOCKED);
 		userEntity.setPassword(tempPwd);
-
+		userEntity.setIsActive("Y");
 		List<User> userList = userRepo.getUserByEmail(userDto.getEmail());
 		if (userList.size() == 0) {
 			userEntity = userRepo.save(userEntity);
-			//isSent = mailSender.sendMail(userEntity);
+			isSent = mailSender.sendMail(userEntity);
 			return userEntity;
 		}
-		System.out.println("Mail Status-------------->" + isSent);
+		System.out.println("Status------->" + isSent);
 		return null;
 	}// saveUser
 
@@ -67,21 +69,23 @@ public class UserServiceImpl implements UserService {
 	}// getUserByID
 
 	/**
-	 * @param userDto not null 
-	 * @apiNote use userRepo get data using email  and update password
+	 * @param userDto not null
+	 * @apiNote use userRepo get data using email and update password
 	 */
 	@Override
 	public User updateUser(UserDTO userDto) throws Exception {
+		System.out.println("UserServiceImpl.updateUser()");
 		User userEntity = null;
 		if (userDto.getNewPassword().equals(userDto.getConfirmPassword())) {
 			userEntity = userRepo.getUserByEmail(userDto.getEmail()).get(0);
-
 			if (userEntity.getPassword().equals(userDto.getPassword())) {
 				userEntity.setPassword(userDto.getNewPassword());
+				userEntity.setAccStatus(ApplicationConstants.USER_UnLOCKED);
 				userEntity = userRepo.save(userEntity);
 			}
-		}
-		return userEntity;
+			return userEntity;
+		} else
+			return null;
 	}// updateUser
 
 	/**
@@ -92,8 +96,25 @@ public class UserServiceImpl implements UserService {
 	public User userLogin(UserDTO userDto) throws Exception {
 		User userEntity = userRepo.getUserByEmail(userDto.getEmail()).get(0);
 		if (userDto.getEmail().equals(userEntity.getEmail()) && userDto.getPassword().equals(userEntity.getPassword()))
-			return userEntity;
-		else
-			return null;
+			if (userEntity.getAccStatus().equalsIgnoreCase(ApplicationConstants.USER_UnLOCKED)) {
+				if (userEntity.getIsActive().equalsIgnoreCase("Y")) {
+					return userEntity;
+				}
+			}
+		return null;
 	}// userLogin
-}
+
+	/**
+	 * @apiNote this method is used for forgot password link to search whether the User's email is available or not ?
+	 */
+	@Override
+	public User searchUserByEmail(String email) throws Exception {
+		User userEntity = new User();
+		boolean isSent = false;
+		userEntity.setEmail(email);
+		userEntity = userRepo.getUserByEmail(userEntity.getEmail()).get(0);
+		isSent = mailSender.sendMailAsResetPwd(userEntity);
+		System.out.println("Passsword sent------------------------------->"+isSent);
+		return userEntity;
+	}
+}// class

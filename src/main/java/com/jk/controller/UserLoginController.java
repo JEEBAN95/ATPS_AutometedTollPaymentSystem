@@ -35,7 +35,7 @@ public class UserLoginController {
 	}// showLoginPage
 
 	/**
-	 * @apiNote get data form login page allow login for the user use service
+	 * @apiNote get data form login page allow login for the user
 	 */
 	@PostMapping("/signin")
 	public String userSignIn(@ModelAttribute UserCmd userCmd, Model model) {
@@ -51,6 +51,30 @@ public class UserLoginController {
 			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.pwdErr);
 			return ApplicationConstants.LOGICAL_USER_LOGIN_FORM;
 		}
-		return ApplicationConstants.LOGICAL_USER_DASHBOARD;
+		return userEntity.getRole()+ApplicationConstants.LOGICAL_USER_DASHBOARD;
 	}// userSignIn
+	
+	/**
+	 * @apiNote this method is used for lunching the forgot password logical form.
+	*/
+	@GetMapping("/forgotpassword")
+	public String forgotPassword(@ModelAttribute("frgtPwd")UserCmd userCmd) {
+		return ApplicationConstants.LOGICAL_USER_FORGOTPASSWORD;
+	}
+	
+	/**
+	 * @apiNote this method is used for sending the password to the user's email
+	*/
+	@PostMapping("/resetPassword")
+	public String sendPasswordToUserEmail(@ModelAttribute("frgtPwd")UserCmd userCmd, Model model) {
+		UserDTO userDto = new UserDTO();
+		userDto.setEmail(userCmd.getEmail());
+		try {
+			userService.searchUserByEmail(userDto.getEmail());
+			model.addAttribute(ApplicationConstants.SUCCESS_MSG, ApplicationConstants.msg);
+		} catch (Exception e) {
+			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.userEmailErr);
+		}
+		return ApplicationConstants.LOGICAL_USER_FORGOTPASSWORD;
+	}//resetPassword
 }// class

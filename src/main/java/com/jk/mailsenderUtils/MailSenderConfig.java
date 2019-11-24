@@ -41,6 +41,31 @@ public class MailSenderConfig {
 		} catch (Exception e) {
 			flag = false;
 			e.printStackTrace();
+			// throw e;
+		}
+		return flag;
+	}
+
+	public boolean sendMailAsResetPwd(User userEntity) {
+		boolean flag = false;
+		final String subject = "No Reply ETPS Registration details";
+		final String txt = "Hi " + userEntity.getFirstName() + " " + userEntity.getLastName()
+				+ ", Welcome to Electronic Toll Payment System. Your  PASSWORD IS ::"
+				+ userEntity.getPassword()
+				+ "<a href=http://localhost:2525/atps/login>Click Here to Un lock your Account </a>";
+		try {
+			MimeMessage message = sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, false);
+
+			helper.setTo(userEntity.getEmail());
+			helper.setSubject(subject);
+			helper.setText(txt, true);
+			sender.send(message);
+			flag = true;
+		} catch (Exception e) {
+			flag = false;
+			e.printStackTrace();
+			// throw e;
 		}
 		return flag;
 	}

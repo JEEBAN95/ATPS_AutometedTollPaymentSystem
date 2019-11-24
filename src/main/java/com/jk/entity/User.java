@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -35,6 +34,10 @@ public class User implements Serializable {
 	private String firstName;
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
+	@Column(name = "ACCOUNT_STATUS", nullable = false)
+	private String accStatus;
+	@Column(name = "ACTIVE_STATUS" , nullable = false)
+	private String isActive;
 	@Column(name = "EMAIL")
 	private String email;
 	@Column(name = "PHONE_NUM", nullable = false)
@@ -45,9 +48,6 @@ public class User implements Serializable {
 	private String gender;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
-	@Version
-	@Column(name = "STATUS")
-	private int status;
 	@Column(name = "CREATE_DT", updatable = false)
 	@CreationTimestamp
 	private Timestamp createDate;

@@ -3,14 +3,20 @@ package com.jk.commonsUtils;
 public interface ApplicationConstants {
 
 	/**
+	 * @Param this constants is used for specifying the 'account status of the user'
+	 */
+	String USER_LOCKED = "Locked";
+	String USER_UnLOCKED = "Un-locked";
+	
+	/**
 	 * @Param this constants is used for specifying the 'role'
 	 */
-	String DefaultRole = "USER";
+	String DEFAULT_ROLE = "user";
 
 	/**
 	 * @Param this constants is used for 'email' notification
 	 */
-	String msg = "User Name and Password is already sent to your given email address";
+	String msg = "Your  Password is already sent to your given email address kindly Visit to your email.";
 
 	/**
 	 * @Param this constants is used for 'uname/password' error notification
@@ -31,6 +37,16 @@ public interface ApplicationConstants {
 	 * @Param this constants is used for 'duplicate email' notification
 	 */
 	String emailErr = "Your email is already exist ";
+	
+	/**
+	 * @Param this constants is used to find whether the given email lD is correct or not and send the notification
+	 */
+	String userEmailErr = "Your email id is not registered with us kindly provide a registered email id";
+	
+	/**
+	 * @Param this constants is used for 'login' notification
+	 */
+	String InternalProblem = "Some thing went wrong or internal problem try again leter";
 
 	/**
 	 * @Param this is the model attribute for password and email error messages
@@ -76,8 +92,14 @@ public interface ApplicationConstants {
 	String LOGICAL_USER_ACC_UNLOCK_FORM = "userAccountUnlockForm";
 
 	/**
-	 * @Param below constants are used for referring 'userDashboard' logical view
+	 * @Param below constants are used for referring 'Dashboard' logical view
 	 *        pages
 	 */
-	String LOGICAL_USER_DASHBOARD = "userDashboard";
+	String LOGICAL_USER_DASHBOARD = "Dashboard";
+	/**
+	 * @Param below constants are used for referring 'Dashboard' logical view
+	 *        pages
+	 */
+	String LOGICAL_USER_FORGOTPASSWORD = "forgotpassword";
+	
 }

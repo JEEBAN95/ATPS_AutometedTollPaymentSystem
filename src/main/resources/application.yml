@@ -11,7 +11,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: jeebankishore95@gmail.com
-    password: jinujinu
+    password: jinujinu95
     protocol: smtp
     properties:
       mail:
@@ -22,7 +22,7 @@ spring:
           ssl:
             trust: smtp.gmail.com
   datasource:
-    url: jdbc:mysql://localhost:3306/atps_project
+    url: jdbc:mysql://localhost:3306/atps_proj
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
@@ -30,7 +30,7 @@ spring:
     show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5Dialect
     
 #Application properties

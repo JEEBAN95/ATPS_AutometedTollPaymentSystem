@@ -63,7 +63,7 @@ public class UserRegController {
 			return "redirect:/sentMail?uid=" + userEntity.getUid();
 		} catch (Exception e) {
 			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.emailErr);
-			return "redirect:/sentMail?msg=" + model.getAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG);
+			return "redirect:/sentMail?msg=" + model.getAttribute(ApplicationConstants.emailErr);
 		}
 	}// userRegister
 
@@ -111,13 +111,8 @@ public class UserRegController {
 		userDto.setConfirmPassword(userCmd.getConfirmPassword());
 		try {
 			userEntity = userService.updateUser(userDto);
-			if (userEntity.getStatus() == 0) {
-				userEntity = null;
-			}
-			userDto.setEmail(userEntity.getEmail());
+			System.out.println(userEntity);
 		} catch (Exception e) {
-			model.addAttribute(ApplicationConstants.UNAME_PASS_ERR_MSG, ApplicationConstants.pwdErr);
-			model.addAttribute(ApplicationConstants.USER_EMAIL, userDto.getEmail());
 			return ApplicationConstants.LOGICAL_USER_ACC_UNLOCK_FORM;
 		}
 		return "redirect:/userlogin?email=" + userDto.getEmail();

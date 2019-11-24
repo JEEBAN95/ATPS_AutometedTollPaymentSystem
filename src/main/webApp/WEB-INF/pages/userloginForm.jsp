@@ -13,19 +13,16 @@
 		<tr>
 			<td style="width: 60%;">image</td>
 
-			<td style="text-align: center;"><label style="color: red">${msg}</label>
+			<td style="text-align: center;">
 				<table
-					style="height: 100%; width: 100%; text-align: left;  padding-top: 50px">
+					style="height: 100%; width: 100%; text-align: left; padding-top: 50px">
 					<tr>
 						<td colspan="2" style="text-align: left;"><label
 							style="color: cyan; font-weight: bolder;">${loginMsg}</label></td>
 					</tr>
 					<tr>
-						<td colspan="2"><label
-							style="color: red; font-weight: bolder;">${email}</label></td>
-					</tr>
-					<tr>
-						<td style="text-align: center;" colspan="2"><h3>SIGN IN</h3><br></td>
+						<td style="text-align: center;" colspan="2"><h3>SIGN IN</h3>
+							<br></td>
 					</tr>
 					<form:form action="signin" modelAttribute="userRegdCmd">
 						<tr>
@@ -33,24 +30,26 @@
 							<td><form:input path="email" placeholder="email adderss" /></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><br>&nbsp;Password &nbsp;</td>
-							<td><br><form:input path="password" placeholder="password"
+							<td style="text-align: right;"><br>&nbsp;Password
+								&nbsp;</td>
+							<td><br>
+							<form:input path="password" placeholder="password"
 									type="password" /></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align: center;"><br>
 								<button type="submit"
 									style="background-color: #00BFFF; color: white;">Sign
-									In</button>
-							</td>
+									In</button></td>
 						</tr>
 						<tr>
-							<td><br> <a href="#">forgot password ?</a></td>
+							<td><br> <a href="forgotpassword">forgot password ?</a></td>
 							<td style="text-align: right;"><br> <a href="signUp">account
 									not created ?</a></td>
 						</tr>
 					</form:form>
-				</table></td>
+				</table>
+			</td>
 		</tr>
 	</table>
 </body>
